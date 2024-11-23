@@ -5,6 +5,9 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const methodOverride = require('method-override');
 
+const catchAsync = require('./utils/catchAsync');
+const ExpressError = require('./utils/ExpressError');
+
 const userRoutes = require('./routes/user');
 require('dotenv').config({ path: './.env' });
 

@@ -1,13 +1,13 @@
 <% layout('layouts/boilerplate')%>
     <div class="container d-flex justify-content-center align-items-center mt-3">
         <div class="row">
-            <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-                <div class="card shadow mb-3">
+            <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4  mb-3">
+                <div class="card shadow">
                     <img src="https://images.unsplash.com/photo-1520453803296-c39eabe2dab4?q=80&w=1725&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="" class="card-img-top" />
                     <div class="card-body">
-                        <h5 class="card-title">회원가입</h5>
-                        <form action="/register" method="POST" class="validated-form" novalidate>
+                        <h1 class="card-title">관리자 회원가입</h1>
+                        <form action="/register/admin" method="POST" class="validated-form" novalidate>
                             <div class="mb-3">
                                 <label class="form-label" for="phonenum">핸드폰 번호</label>
                                 <input class="form-control" type="text" id="phonenum" name="phonenum" required>
@@ -15,13 +15,6 @@
                                     Looks good!
                                 </div>
                             </div>
-                            <!-- <div class="mb-3">
-                                <label class="form-label" for="email">Email</label>
-                                <input class="form-control" type="email" id="email" name="email" required>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                            </div> -->
                             <div class="mb-3">
                                 <label class="form-label" for="password">비밀번호</label>
                                 <input class="form-control" type="password" id="password" name="password" required>

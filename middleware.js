@@ -17,5 +17,13 @@ module.exports.isAdmin = (req, res, next) => {
 };
 
 module.exports.isSecureAdminCreation = (req, res, next) => {
+    const userPhoneNumber = req.body.phoneNum;
+    const adminNumbers = JSON.parse(process.env.ADMIN_NUMBERS);
+
+
+    if (Object.values(adminNumbers).includes(userPhoneNumber)) {
+        return next();
+    }
+    throw new ExpressError('관리자 핸드폰 번호가 아닙니다.', 401);
     // 여기에 보안 로직 구현 (예: 특정 IP에서만 접근 가능, 특별한 토큰 필요 등)
 }

@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('./models/user.js');
+
+
 
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
@@ -44,6 +49,22 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy({
+  usernameField: 'phonenum'  // 'phonenum'을 사용자 식별자로 지정
+}, User.authenticate()));
+
+// 이 줄은 제거해야 합니다. 위의 설정으로 대체됩니다.
+// passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   // res.locals.success = req.flash('success');
@@ -51,7 +72,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/user', userRoutes);
+app.use('/', userRoutes);
 // app.use('/product', productRoutes);
 
 

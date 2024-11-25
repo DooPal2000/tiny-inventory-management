@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new Schema({
-    phoneNum: {
+    phonenum: {
         type: String,
         required: true,
         unique: true
@@ -22,6 +22,6 @@ const userSchema = new Schema({
         default: Date.now
     },
 });
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose, {usernameField: 'phonenum' });
 module.exports = mongoose.model("User", userSchema);
 

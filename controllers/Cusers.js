@@ -4,13 +4,16 @@ const ExpressError = require('../utils/ExpressError');
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');
 };
+module.exports.renderRegisterAdmin = (req, res) => {
+    res.render('users/registerAdmin');
+};
 
 module.exports.register = async (req, res) => {
     try {
-        const { email, username, password } = req.body;
+        const { phonenum, password } = req.body;
         //await User.deleteMany({ username: username });
 
-        const user = new User({ email, username });
+        const user = new User({ phonenum, username });
         const registerUser = await User.register(user, password);
         res.redirect('/home');
 
@@ -18,6 +21,23 @@ module.exports.register = async (req, res) => {
         res.redirect('register');
     }
 };
+
+module.exports.registerAdmin = async (req, res) => {
+    try {
+        const { phonenum, password } = req.body;
+        //await User.deleteMany({ username: username });
+
+        const user = new User({ phonenum, username });
+        const registerUser = await User.register(user, password);
+        res.redirect('/home');
+
+    } catch (e) {
+        console.log(e)
+        throw new ExpressError('무언가 잘못되었습니다', 401);
+        res.redirect('registerAdmin');
+    }
+};
+
 
 
 module.exports.renderLogin = (req, res) => {

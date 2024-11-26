@@ -24,10 +24,27 @@
                                 Looks good!
                             </div>
                         </div>
-                        <button class="btn btn-success btn-block">Login</button>
+                        <div class="d-flex justify-content-between">
+                            <a href="/register" class="btn btn-dark">회원가입</a>
+                            <button type="submit" class="btn btn-primary">로그인</button>
+                        </div>                    
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<% if(error && error.length) { %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          icon: 'error',
+          title: '로그인 실패',
+          text: '핸드폰 전화번호 혹은 비밀번호가 틀렸습니다.'
+        });
+      });
+    </script>
+    <% } %>
+    
+    

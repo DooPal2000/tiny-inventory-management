@@ -17,7 +17,7 @@ module.exports.isAdmin = (req, res, next) => {
 };
 
 module.exports.isSecureAdminCreation = (req, res, next) => {
-    const userPhoneNumber = req.body.phoneNum;
+    const userPhoneNumber = req.body.phonenum;
     const adminNumbers = JSON.parse(process.env.ADMIN_NUMBERS);
 
 

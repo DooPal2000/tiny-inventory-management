@@ -9,48 +9,49 @@ module.exports.renderRegisterAdmin = (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
-    try {
-        const { phonenum, password } = req.body;
-        //await User.deleteMany({ username: username });
+    const { phonenum, password } = req.body;
+    //await User.deleteMany({ username: username });
 
-        const user = new User({ phonenum, username });
-        const registerUser = await User.register(user, password);
-        res.redirect('/home');
-
-    } catch (e) {
-        res.redirect('register');
-    }
+    const user = new User({
+        phonenum,
+        isActive: false,
+    });
+    const registerUser = await User.register(user, password);
+    res.redirect('/home');
 };
 
 module.exports.registerAdmin = async (req, res) => {
-    try {
-        const { phonenum, password } = req.body;
-        //await User.deleteMany({ username: username });
+    const { phonenum, password } = req.body;
 
-        const user = new User({ phonenum, username });
-        const registerUser = await User.register(user, password);
-        res.redirect('/home');
+    const user = new User({
+        phonenum,
+        role: 'admin' // role을 'admin'으로 설정
+    });
 
-    } catch (e) {
-        console.log(e)
-        throw new ExpressError('무언가 잘못되었습니다', 401);
-        res.redirect('registerAdmin');
-    }
+    const registerUser = await User.register(user, password);
+    req.login(registerUser, err => {
+        if (err) return next(err);
+        res.redirect('/admin-dashboard'); // 관리자 대시보드로 리다이렉트
+    });
 };
-
-
 
 module.exports.renderLogin = (req, res) => {
     res.render('users/login');
 };
 
-
 module.exports.login = (req, res) => {
-    const redirectUrl = res.locals.returnTo || '/home'; // update this line to use res.locals.returnTo now
+    let redirectUrl = res.locals.returnTo || '/home';
+    console.log(req.user);
+    // 사용자 역할이 'admin'인 경우 관리자 페이지로 리다이렉트
+    if (req.user && req.user.role === 'admin') {
+        redirectUrl = '/admin-dashboard'; // 관리자 대시보드 URL
+    }
+
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 };
 
+  
 module.exports.logout = (req, res, next) => {
 
     req.logout(function (err) {

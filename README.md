@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="path/to/your/image.png" alt="Mini Inventory Management App Logo" width="200" height="200">
+  <img src="public/img/vegatable.png" alt="Tiny Inventory Management App Logo" width="200" height="200">
 </div>
 
 # 미니 재고관리 앱

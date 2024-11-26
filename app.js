@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -48,6 +49,8 @@ const sessionConfig = {
   }
 }
 app.use(session(sessionConfig));
+app.use(flash());
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -66,9 +69,10 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  // res.locals.success = req.flash('success');
-  // res.locals.error = req.flash('error');
+  console.log("req.user:", req.user); // 디버깅 로그 추가
+  res.locals.currentUser = req.user  || null; // req.user가 없으면 null로 설정;
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
   next();
 });
 

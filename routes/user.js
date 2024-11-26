@@ -17,15 +17,32 @@ router.post('/register/admin', isSecureAdminCreation, catchAsync(users.registerA
 // 이렇게 수정하면, 최신 버전의 Passport.js를 사용해도 애플리케이션에서 사용자가 로그인 페이지 전에 방문 중이던 페이지로 정확하게 리디렉션됩니다.
 router.get('/login', users.renderLogin);
 
-router.post('/login',
-    // passport.authenticate logs the user in and clears req.session
+// router.post('/login',
+//     // passport.authenticate logs the user in and clears req.session
+//     passport.authenticate('local', { failureFlash: false, failureRedirect: '/err' }),
 
-    passport.authenticate('local', { failureFlash: false, failureRedirect: '/login' }),
+//     // Now we can use res.locals.returnTo to redirect the user after login
+//     users.login);
 
-    // Now we can use res.locals.returnTo to redirect the user after login
-
-    users.login);
-
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            // 로그인 실패 시 플래시 메시지 설정
+            req.flash('error', info.message || '로그인 실패');
+            return res.redirect('/login');
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            // 로그인 성공 시 리다이렉트
+            return res.redirect(res.locals.returnTo || '/home');
+        });
+    })(req, res, next);
+});
 
 router.get('/logout', users.logout);
 

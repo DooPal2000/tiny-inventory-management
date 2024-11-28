@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const allowedPhoneNumberSchema = new Schema({
-    phonenumber: {
+    phonenum: {
         type: String,
         required: true,
         unique: true

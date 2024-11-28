@@ -9,7 +9,7 @@
                     <a href="/login" class="btn btn-lg btn-secondary font-weight-bold border-white bg-black">
                         로그인
                     </a>
-                    <% } else if(currentUser.role=='user' ){ %>
+                    <% } else if(currentUser.role=='user' && currentUser.isActive ){ %>
                         <a href="/product" class="btn btn-info btn-lg">
                             재고 페이지
                         </a>

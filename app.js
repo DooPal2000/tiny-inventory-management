@@ -15,6 +15,7 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 
 const userRoutes = require('./routes/user');
+const adminRoutes = require('./routes/admin');
 require('dotenv').config({ path: './.env' });
 
 mongoose
@@ -77,6 +78,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', userRoutes);
+app.use('/admin', adminRoutes);
 // app.use('/product', productRoutes);
 
 

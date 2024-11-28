@@ -39,7 +39,7 @@ router.post('/login', (req, res, next) => {
                 return next(err);
             }
             // 로그인 성공 시 리다이렉트
-            return res.redirect(res.locals.returnTo || '/home');
+            return res.redirect(res.locals.returnTo || '/');
         });
     })(req, res, next);
 });

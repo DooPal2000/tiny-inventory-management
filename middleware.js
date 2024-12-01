@@ -22,7 +22,7 @@ module.exports.isAuthorized = (req, res, next) => {
 
 module.exports.isAdmin = (req, res, next) => {
     if (req.isAuthenticated() && req.user.role === 'admin') {
-        next();
+        return next();
     }
     req.flash('error', '로그인 해 주세요.')
     throw new ExpressError('관리자가 아닙니다.', 401);

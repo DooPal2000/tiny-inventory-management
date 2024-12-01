@@ -17,7 +17,7 @@ module.exports.register = async (req, res) => {
         isActive: false,
     });
     const registerUser = await User.register(user, password);
-    res.redirect('/home');
+    res.redirect('/');
 };
 
 module.exports.registerAdmin = async (req, res) => {
@@ -63,7 +63,7 @@ module.exports.logout = (req, res, next) => {
         }
 
 
-        res.redirect('/home');
+        res.redirect('/');
 
     });
 }

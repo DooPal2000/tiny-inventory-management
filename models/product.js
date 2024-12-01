@@ -22,6 +22,11 @@ const productSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 });
 

@@ -1,50 +1,49 @@
 <% layout('layouts/boilerplate')%>
 
-<div class="container d-flex justify-content-center align-items-center mt-3">
-    <div class="row">
-        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-            <div class="card shadow mb-3">
-                <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">로그인</h5>
-                    <form action="/login" method="POST" class="validated-form" novalidate>
-                        <div class="mb-3">
-                            <label class="form-label" for="phonenum">핸드폰 번호</label>
-                            <input class="form-control" type="text" id="phonenum" name="phonenum" autofocus required>
-                            <div class="valid-feedback">
-                                Looks good!
+    <div class="container d-flex justify-content-center align-items-center mt-3">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+                <div class="card shadow mb-3">
+                    <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">로그인</h5>
+                        <form action="/login" method="POST" class="validated-form" novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="phonenum">핸드폰 번호</label>
+                                <input class="form-control" type="text" id="phonenum" name="phonenum" autofocus
+                                    required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label class="form-label" for="password">비밀번호</label>
-                            <input class="form-control" type="password" id="password" name="password" required>
-                            <div class="valid-feedback">
-                                Looks good!
+                            <div class="mb-3">
+                                <label class="form-label" for="password">비밀번호</label>
+                                <input class="form-control" type="password" id="password" name="password" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <a href="/register" class="btn btn-dark">회원가입</a>
-                            <button type="submit" class="btn btn-primary">로그인</button>
-                        </div>                    
-                    </form>
+                            <div class="d-flex justify-content-between">
+                                <a href="/register" class="btn btn-dark">회원가입</a>
+                                <button type="submit" class="btn btn-primary">로그인</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<% if(error && error.length) { %>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-          icon: 'error',
-          title: '로그인 실패',
-          text: '핸드폰 전화번호 혹은 비밀번호가 틀렸습니다.'
-        });
-      });
-    </script>
-    <% } %>
-    
-    
+    <% if(error && error.length) { %>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: '로그인 실패',
+                    text: '로그인 도중 문제가 발생했습니다.'
+                });
+            });
+        </script>
+        <% } %>

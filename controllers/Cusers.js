@@ -1,3 +1,4 @@
+const Product = require('../models/product');
 const User = require('../models/user');
 const ExpressError = require('../utils/ExpressError');
 
@@ -51,7 +52,7 @@ module.exports.login = (req, res) => {
     res.redirect(redirectUrl);
 };
 
-  
+
 module.exports.logout = (req, res, next) => {
 
     req.logout(function (err) {
@@ -68,6 +69,14 @@ module.exports.logout = (req, res, next) => {
     });
 }
 
+module.exports.renderProduct = async (req, res) => {
+    const currentUser = req.user;
+    const products = await Product.find({ createdBy: currentUser._id });
+Product
+    res.render('products/product', { products: products });
+}
+
+
 module.exports.searchFavorite = async (req, res) => {
     const currentUser = req.user;
 
@@ -81,33 +90,5 @@ module.exports.searchFavorite = async (req, res) => {
     res.json(favoriteFixtureIds);
 };
 
-module.exports.addFavorite = async (req, res) => {
-    const currentUser = req.user;
-    const fixtureId = parseInt(req.params.fixtureId);
-
-    if (!currentUser.favorites.includes(fixtureId)) {
-        currentUser.favorites.push(fixtureId);
-        await currentUser.save();
-    }
-
-    console.log(currentUser.favorites);
-    res.json({ success: true, message: '즐겨찾기에 추가되었습니다.' });
-};
-
-module.exports.deleteFavorite = async (req, res) => {
-    const currentUser = req.user;
-    const fixtureId = parseInt(req.params.fixtureId);
-
-    // favorites 배열에서 해당 fixture의 _id를 제거
-    currentUser.favorites = currentUser.favorites.filter(id => id !== fixtureId);
-    await currentUser.save();
-
-    // // favorites 배열에서 해당 fixture의 _id를 제거
-    // currentUser.favorites = currentUser.favorites.filter(id => !id.equals(fixture._id));
-    // await currentUser.save();
-
-    console.log(currentUser.favorites);
-    res.send(currentUser);
-};
 
 

@@ -16,6 +16,7 @@ const ExpressError = require('./utils/ExpressError');
 
 const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
+const productRoutes = require('./routes/products.js');
 require('dotenv').config({ path: './.env' });
 
 mongoose
@@ -79,7 +80,7 @@ app.use((req, res, next) => {
 
 app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
-// app.use('/product', productRoutes);
+app.use('/products', productRoutes);
 
 
 app.get('/', (req, res) => {

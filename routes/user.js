@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const catchAsync = require('../utils/catchAsync');
-const { isLoggedIn, isSecureAdminCreation } = require('../middleware');
+const { isLoggedIn, isSecureAdminCreation, isAuthorized } = require('../middleware');
 const users = require('../controllers/Cusers');
 
 
@@ -46,6 +46,7 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', users.logout);
 
-router.get('/users/favorites', catchAsync(users.searchFavorite));
+
+// router.get('/users/favorites', catchAsync(users.searchFavorite));
 
 module.exports = router;

@@ -1,4 +1,12 @@
 <% layout('layouts/boilerplate') %>
+<% 
+function formatPhoneNumber(phonenum) {
+    if (phonenum.length === 11) {
+        return phonenum.replace(/(\d{3})(\d{4})(\d{4})/, '010-$2-$3');
+    }
+    return phonenum; // 형식이 맞지 않으면 원본 그대로 반환
+}
+%>
 
 <div class="container mt-5">
     <h1 class="text-center">관리자 페이지 - 사용자 관리</h1>
@@ -6,9 +14,7 @@
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th>이름</th>
                     <th>핸드폰 번호</th>
-                    <th>이메일</th>
                     <th>활성 상태</th>
                     <th>관리</th>
                 </tr>
@@ -16,9 +22,7 @@
             <tbody>
                 <% users.forEach(user => { %>
                     <tr>
-                        <td><%= user.name %></td>
-                        <td><%= user.phonenum %></td>
-                        <td><%= user.email %></td>
+                        <td><%= formatPhoneNumber(user.phonenum) %></td>
                         <td>
                             <div class="form-check form-switch">
                                 <input 
@@ -52,6 +56,7 @@
             toggle.addEventListener('change', function () {
                 const userId = this.dataset.userId;
                 const isActive = this.checked;
+                const label = document.getElementById(`label-${userId}`);
 
                 fetch(`/admin/toggle-active/${userId}`, {
                     method: 'PATCH',
@@ -63,12 +68,15 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
+                            label.textContent = isActive ? '활성화' : '비활성화';
                             Swal.fire('성공', '활성 상태가 변경되었습니다.', 'success');
                         } else {
+                            this.checked = !isActive; // 실패 시 토글 상태 되돌리기
                             Swal.fire('실패', '상태 변경에 실패했습니다.', 'error');
                         }
                     })
                     .catch(err => {
+                        this.checked = !isActive; // 에러 시 토글 상태 되돌리기
                         Swal.fire('에러', '서버와의 통신에 실패했습니다.', 'error');
                     });
             });

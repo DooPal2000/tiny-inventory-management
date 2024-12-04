@@ -14,7 +14,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.isAuthorized = (req, res, next) => {
     if (req.isAuthenticated() && req.user.isActive) {
-        next();
+        return next();
     }
     req.flash('error', '활성화된 고객님이 아닙니다. 관리자에게 문의해 주세요.');
     res.redirect('/login');
@@ -35,7 +35,7 @@ module.exports.isSecureAdminCreation = (req, res, next) => {
 
 
     if (Object.values(adminNumbers).includes(userPhoneNumber)) {
-        next();
+        return next();
     }
     throw new ExpressError('관리자 핸드폰 번호가 아닙니다.', 401);
 }

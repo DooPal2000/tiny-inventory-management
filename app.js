@@ -8,6 +8,8 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/user.js');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 
 
 
@@ -39,6 +41,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(mongoSanitize({
+  replaceWith: '_'
+}));
 
 const sessionConfig = {
   secret: 'thisissecretkey',
@@ -52,6 +57,20 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "default-src": ["'self'"],
+        "script-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
+        "style-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
+        "img-src": ["'self'", "https://images.unsplash.com", "data:"],
+      },
+    },
+  })
+);
+
 
 
 app.use(passport.initialize());

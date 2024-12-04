@@ -34,7 +34,7 @@ module.exports.isSecureAdminCreation = (req, res, next) => {
     const adminNumbers = JSON.parse(process.env.ADMIN_NUMBERS);
 
     if (!Object.values(adminNumbers).includes(userPhoneNumber)) {
-        req.flash('error', '관리자 핸드폰 번호가 아닙니다.');
+        req.flash('error', '관리자 계정 생성이 불가합니다.');
         return res.redirect('/unauthorized');
     }
     next();

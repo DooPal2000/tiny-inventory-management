@@ -5,7 +5,7 @@ module.exports.renderAdmin = async (req, res) => {
     const users = await User.find({ role: 'user' }).select('-password'); // user role만 담고 password 제외
     // const users = await User.find({ role: 'user' }).select('-password'); // user role만 담고 password 제외
 
-    res.render('admin/admin', { users: users });
+    res.render('admin/admin', { users: users, });
 };
 
 module.exports.toggleUserActive = async (req, res) => {
@@ -14,14 +14,14 @@ module.exports.toggleUserActive = async (req, res) => {
 
     const user = await User.findById(userId);
     console.log('Before update:', user.isActive);
-    
+
     user.isActive = !user.isActive;
     await user.save();
-    
+
     console.log('After update:', user.isActive);
-    
+
     const updatedUser = await User.findById(userId);
-    console.log('Final state:', updatedUser.isActive);   
+    console.log('Final state:', updatedUser.isActive);
 
 
     res.json({ success: true, isActive: user.isActive });

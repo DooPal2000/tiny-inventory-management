@@ -56,7 +56,7 @@ function formatPhoneNumber(phonenum) {
             toggle.addEventListener('change', function () {
                 const userId = this.dataset.userId;
                 const isActive = this.checked;
-                const label = document.getElementById(`label-${userId}`);
+                const label = this.nextElementSibling; // 체크박스 다음에 오는 label 요소
 
                 fetch(`/admin/toggle-active/${userId}`, {
                     method: 'PATCH',

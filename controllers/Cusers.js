@@ -75,20 +75,3 @@ module.exports.renderProduct = async (req, res) => {
 Product
     res.render('products/product', { products: products });
 }
-
-
-module.exports.searchFavorite = async (req, res) => {
-    const currentUser = req.user;
-
-    // favorites 배열의 fixtureId를 사용하여 Fixture를 조회
-    const favorites = await Fixture.find({
-        'fixture.fixtureId': { $in: currentUser.favorites }
-    });
-    const favoriteFixtureIds = currentUser.favorites;
-
-
-    res.json(favoriteFixtureIds);
-};
-
-
-

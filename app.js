@@ -58,18 +58,19 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        "default-src": ["'self'"],
-        "script-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
-        "style-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
-        "img-src": ["'self'", "https://images.unsplash.com", "data:"],
-      },
-    },
-  })
-);
+// app.use(
+//   helmet({
+//     hsts: false,
+//     contentSecurityPolicy: {
+//       directives: {
+//         "default-src": ["'self'"],
+//         "script-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
+//         "style-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
+//         "img-src": ["'self'", "https://images.unsplash.com", "data:"],
+//       },
+//     },
+//   })
+// );
 
 
 

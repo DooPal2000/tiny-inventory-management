@@ -46,7 +46,7 @@ app.use(mongoSanitize({
 }));
 
 const sessionConfig = {
-  secret: 'thisissecretkey',
+  secret: process.env.SESSION_SECRET_KEY || 'thisissecret',
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -91,7 +91,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   console.log("req.user:", req.user); // 디버깅 로그 추가
-  res.locals.currentUser = req.user  || null; // req.user가 없으면 null로 설정;
+  res.locals.currentUser = req.user || null; // req.user가 없으면 null로 설정;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();

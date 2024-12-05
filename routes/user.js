@@ -38,6 +38,13 @@ router.post('/login', (req, res, next) => {
             if (err) {
                 return next(err);
             }
+
+            if (user.role === 'admin') {
+                return res.redirect('/admin');
+            } else {
+                return res.redirect('/products');
+            }
+
             // 로그인 성공 시 리다이렉트
             return res.redirect(res.locals.returnTo || '/');
         });

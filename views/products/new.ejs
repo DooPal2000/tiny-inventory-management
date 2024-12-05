@@ -1,33 +1,25 @@
 <% layout('layouts/boilerplate') %>
 
-    <div class="container">
-        <h1>Create a New Post</h1>
-        <form action="/postings" method="POST" enctype="multipart/form-data">
+    <div class="container mt-3">
+        <h1 class="text-center">새 상품 추가 페이지</h1>
+        <form action="/products" method="POST">
             <div class="form-group mt-2">
-                <label for="title">Post Title</label>
-                <input type="text" class="form-control" id="title" name="posting[title]" required>
+                <label for="name">상품명</label>
+                <input type="text" class="form-control" id="name" name="product[name]" required>
             </div>
-
-            <div class="form-group mt-2">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="posting[description]" rows="4" required></textarea>
-            </div>
-
-            <!-- <div class="form-group">
-                <label for="image">Image</label>
-                <input type="file" class="form-control-file" id="image" name="image">
-            </div> -->
 
             <div class="form-group mt-2">
-                <label for="image" class="form-label"></label>
-                <input class="form-control" type="file" id="image" name="image">
+                <label for="price">가격</label>
+                <input type="number" class="form-control" id="price" name="product[price]" required>
             </div>
 
-            <div class="form-group mt-2 mb-3">
-                <label for="location">Location</label>
-                <input type="text" class="form-control" id="location" name="posting[location]">
+            <div class="form-group mt-2">
+                <label for="quantity">현재 수량</label>
+                <input type="number" class="form-control" id="quantity" name="product[quantity]" required min="0">
             </div>
 
-            <button type="submit" class="btn btn-primary">Create Post</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mt-3">상품 추가 완료</button>
+            </div>        
         </form>
     </div>

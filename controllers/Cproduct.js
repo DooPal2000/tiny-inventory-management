@@ -15,12 +15,17 @@ module.exports.createProduct = async (req, res) => {
     const product = new Product(req.body.product);
     product.createdBy = req.user._id;
     await product.save();
-    res.redirect(`/products/${product._id}`);
+
+    // 저장한 후 createdBy가 req.user._id인 모든 product를 가져옴
+    const products = await Product.find({ createdBy: req.user._id });
+
+    // products를 index 페이지로 렌더링
+    res.render('products/index', { products });
 };
 
 module.exports.showProduct = async (req, res) => {
     const product = await Product.findById(req.params.id);
-    res.render('products/show', { product });
+    res.render('products/edit', { product });
 };
 
 module.exports.renderEditForm = async (req, res) => {
@@ -31,7 +36,12 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateProduct = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(id, { ...req.body.product });
-    res.redirect(`/products/${product._id}`);
+
+    // 저장한 후 createdBy가 req.user._id인 모든 product를 가져옴
+    const products = await Product.find({ createdBy: req.user._id });
+
+    // products를 index 페이지로 렌더링
+    res.render('products/index', { products });
 };
 
 module.exports.deleteProduct = async (req, res) => {

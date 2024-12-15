@@ -20,5 +20,8 @@ router.route('/:id')
 
 router.get('/:id/edit', isAuthorized, catchAsync(products.renderEditForm));
 
+router.post('/:id/update-quantity', isAuthorized, catchAsync(products.updateQuantity));
+
+
 
 module.exports = router;

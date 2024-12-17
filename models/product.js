@@ -16,19 +16,11 @@ const productSchema = new Schema({
     default: 0,
     min: 0
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  },
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
   }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

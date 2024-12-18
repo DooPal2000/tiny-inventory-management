@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   app:
     build: .
@@ -6,9 +6,15 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - MONGODB_URI=${MONGODB_URI}
-      - RapidApiKey=${RapidApiKey}
-      - SESSION_SECRET_KEY=${SESSION_SECRET_KEY}
-      - ADMIN_NUMBERS=${ADMIN_NUMBERS}
-    env_file:
-      - .env
+    secrets:
+      - mongodb_uri
+      - admin_numbers
+      - session_secret_key
+
+secrets:
+  mongodb_uri:
+    external: true
+  admin_numbers:
+    external: true
+  session_secret_key:
+    external: true

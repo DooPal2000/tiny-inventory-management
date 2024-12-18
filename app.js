@@ -10,6 +10,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/user.js');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
+const { connectToDatabase } = require('./database');
+const config = require('./config');
+
 
 
 
@@ -19,17 +22,20 @@ const ExpressError = require('./utils/ExpressError');
 const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
 const productRoutes = require('./routes/products.js');
-require('dotenv').config({ path: './.env' });
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log("Connected to database!");
-  })
-  .catch((e) => {
-    console.log("Connection failed!");
-    console.error("Connection failed:", e);
-  });
+
+// 데이터베이스 연결
+connectToDatabase();
+
+// mongoose
+//   .connect(process.env.MONGODB_URI)
+//   .then(() => {
+//     console.log("Connected to database!");
+//   })
+//   .catch((e) => {
+//     console.log("Connection failed!");
+//     console.error("Connection failed:", e);
+//   });
 
 const app = express();
 
@@ -92,7 +98,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   console.log("req.user:", req.user); // 디버깅 로그 추가
-  res.locals.currentUser = req.user  || null; // req.user가 없으면 null로 설정;
+  res.locals.currentUser = req.user || null; // req.user가 없으면 null로 설정;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();

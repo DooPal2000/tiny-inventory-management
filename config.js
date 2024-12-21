@@ -10,7 +10,11 @@ function loadProductionSecrets() {
 
 function loadEnvironment() {
   if (process.env.NODE_ENV === 'production') {
-    return loadProductionSecrets();
+    return {
+      MONGODB_URI: process.env.MONGODB_URI,
+      ADMIN_NUMBERS: process.env.ADMIN_NUMBERS,
+      SESSION_SECRET_KEY: process.env.SESSION_SECRET_KEY,
+    };
   } else {
     require('dotenv').config({ path: './.env' });
     return process.env;

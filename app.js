@@ -52,13 +52,13 @@ app.use(mongoSanitize({
 }));
 
 const sessionConfig = {
-  secret: 'thisissecretkey',
+  secret: process.env.SESSION_SECRET_KEY,
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 1,
-    maxAge: 1000 * 60 * 60 * 24 * 1
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 3,
+    maxAge: 1000 * 60 * 60 * 24 * 3
   }
 }
 app.use(session(sessionConfig));

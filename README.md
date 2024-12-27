@@ -14,14 +14,28 @@
 - EJS (Embedded JavaScript templating)
 - Bootstrap
 - SweetAlert
+- Docker & Docker Compose
+- Nginx
+- HTTPS (GoGetSSL)
 
 ## 주요 기능
 
 - 재고 항목 추가, 조회, 수정, 삭제 (CRUD)
 - 사용자 인증 및 권한 관리
-- 재고 수준 알림
-- 간단한 보고서 생성
 
-## 설치 및 실행
+## 배포 및 인프라 구조
 
-1. 저장소를 클론합니다:
+### Docker 및 Docker Compose
+- 윈도우 환경에서 Docker Compose를 사용하여 애플리케이션 빌드
+- 빌드된 Docker 이미지를 Docker Hub에 업로드
+- 우분투 서버에서 Docker Compose를 사용하여 애플리케이션 실행
+- 환경 변수 관리를 위해 두 개의 Docker Compose 파일 사용
+
+### Nginx 웹 서버
+- HTTP 및 HTTPS 트래픽 관리
+- 우분투 서버에 직접 설치 및 구성 (Docker 컨테이너 외부에서 관리)
+
+### SSL/TLS
+- GoGetSSL에서 구매한 유료 SSL 인증서 사용
+- HTTPS를 통한 보안 연결 제공
+

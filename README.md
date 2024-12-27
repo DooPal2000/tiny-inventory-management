@@ -28,6 +28,7 @@
 <div align="center">
   <img src="https://blog.kakaocdn.net/dn/bx4IXv/btrZCqx0B0f/4wlJeMZqNPpAF6UpUnNDVK/img.jpg" alt="Docker compose image" width="200" height="200">
 </div>
+
 - 윈도우 환경에서 Docker Compose를 사용하여 애플리케이션 빌드
 - 빌드된 Docker 이미지를 Docker Hub에 업로드
 - 우분투 서버에서 Docker Compose를 사용하여 애플리케이션 실행
@@ -37,6 +38,7 @@
 <div align="center">
   <img src="https://blog.kakaocdn.net/dn/k9XzT/btqCMnyJfA4/BOB5x2OnIXDpGPCepCS141/img.png" alt="Kakao Blog Image" width="200" height="200">
 </div>
+
 - HTTP 및 HTTPS 트래픽 관리
 - 우분투 서버에 직접 설치 및 구성 (Docker 컨테이너 외부에서 관리)
 
@@ -44,6 +46,7 @@
 <div align="center">
   <img src="https://asset.sslcert.co.kr/images/logo/GOGETSSL_Logo_2.png" alt="GoGetSSL Logo" width="200" height="100">
 </div>
+
 - GoGetSSL에서 구매한 유료 SSL 인증서 사용
 - HTTPS를 통한 보안 연결 제공
 

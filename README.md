@@ -24,6 +24,10 @@
 - 사용자 인증 및 권한 관리
 
 ## 배포 및 인프라 구조
+<div align="center">
+  <img src="(https://blog.kakaocdn.net/dn/bx4IXv/btrZCqx0B0f/4wlJeMZqNPpAF6UpUnNDVK/img.jpg)" alt="Dokcer compose image" width="200" height="200">
+</div
+
 
 ### Docker 및 Docker Compose
 - 윈도우 환경에서 Docker Compose를 사용하여 애플리케이션 빌드

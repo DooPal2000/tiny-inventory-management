@@ -11,6 +11,23 @@ module.exports.isLoggedIn = (req, res, next) => {
     next();
 }
 
+module.exports.isRealPhone = (req, res, next) => {
+    // 로그인 상태 확인
+    if (!req.isAuthenticated()) {
+        req.flash('error', '로그인 해 주세요.');
+        return res.redirect('/login');
+    }
+
+    // 전화번호 유효성 검사
+    const phoneRegex = /^[0-9]{10,11}$/;
+    if (!req.body.phonenum || !phoneRegex.test(req.body.phonenum)) {
+        req.flash('error', '유효한 전화번호를 입력해 주세요.');
+        return res.redirect('/register');  // 혹은 원하는 페이지로 리디렉션
+    }
+
+    next();
+};
+
 
 module.exports.isAuthorized = (req, res, next) => {
     if (!req.isAuthenticated() || !req.user.isActive) {

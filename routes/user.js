@@ -3,14 +3,14 @@ const router = express.Router();
 const passport = require('passport');
 
 const catchAsync = require('../utils/catchAsync');
-const { isLoggedIn, isSecureAdminCreation, isAuthorized } = require('../middleware');
+const { isLoggedIn, isSecureAdminCreation, isAuthorized, isRealPhone } = require('../middleware');
 const users = require('../controllers/Cusers');
 
 
 router.get('/register', users.renderRegister);
 router.get('/register/admin', users.renderRegisterAdmin);
 
-router.post('/register', catchAsync(users.register));
+router.post('/register', isRealPhone, catchAsync(users.register));
 router.post('/register/admin', isSecureAdminCreation, catchAsync(users.registerAdmin));
 
 // PASSPORT 보안 강화로 인해 로그인 시 세션 초기화, 아래 코드 사용 

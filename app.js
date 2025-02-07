@@ -78,7 +78,23 @@ app.use(flash());
 //   })
 // );
 
-
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "default-src": ["'self'"],
+        "script-src": [
+          "'self'", 
+          "https://cdn.jsdelivr.net", 
+          "https://cdnjs.cloudflare.com", 
+          "'unsafe-inline'"
+        ],
+        "style-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
+        "img-src": ["'self'", "https://images.unsplash.com", "data:"],
+      },
+    },
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());

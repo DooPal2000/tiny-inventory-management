@@ -13,10 +13,10 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.isRealPhone = (req, res, next) => {
     // 로그인 상태 확인
-    if (!req.isAuthenticated()) {
-        req.flash('error', '로그인 해 주세요.');
-        return res.redirect('/login');
-    }
+    // if (!req.isAuthenticated()) {
+    //     req.flash('error', '로그인 해 주세요.');
+    //     return res.redirect('/login');
+    // }
 
     // 전화번호 유효성 검사
     const phoneRegex = /^[0-9]{10,11}$/;

@@ -5,9 +5,6 @@ yarn-error.log
 .git
 .gitignore
 .env
-.dockerignore
-Dockerfile
-README.md
 .vscode
 tests
 coverage

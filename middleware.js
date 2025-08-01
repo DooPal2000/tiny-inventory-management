@@ -1,8 +1,10 @@
 const { user } = require('./models/user.js');
 const ExpressError = require('./utils/ExpressError.js');
+const logger = require('./utils/logger');
 
 module.exports.isLoggedIn = (req, res, next) => {
-    console.log("Req.user...", req.user)
+    logger.info(`Req User : ${req.user}`);
+
     if (!req.isAuthenticated()) {
         // req.session.returnTo = req.originalUrl;
         req.flash('error', '로그인 해 주세요.')
@@ -12,8 +14,8 @@ module.exports.isLoggedIn = (req, res, next) => {
 }
 
 module.exports.isRealPhone = (req, res, next) => {
+    logger.debug(`isRealPhone 요청: ${req.body} ${req.url}`);
 
-    console.log(req.body);
     // 전화번호에서 '-' 제거
     let phoneNumber = req.body.phonenum.replace(/-/g, '');
 
@@ -34,7 +36,7 @@ module.exports.isRealPhone = (req, res, next) => {
 module.exports.isAuthorized = (req, res, next) => {
     if (!req.isAuthenticated() || !req.user.isActive) {
         req.flash('error', '활성화된 고객님이 아닙니다. 관리자에게 문의해 주세요.');
-        return res.redirect('/login');
+        return res.redirect('/');
     }
     next();
 };

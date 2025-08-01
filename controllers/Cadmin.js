@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const ExpressError = require('../utils/ExpressError');
+const logger = require('../utils/logger');
+
 
 module.exports.renderAdmin = async (req, res) => {
     const users = await User.find({ role: 'user' }).select('-password'); // user role만 담고 password 제외
@@ -13,15 +15,17 @@ module.exports.toggleUserActive = async (req, res) => {
     const { isActive } = req.body;
 
     const user = await User.findById(userId);
-    console.log('Before update:', user.isActive);
+    logger.debug(`Before update: isActive=${user.isActive}`);
 
     user.isActive = !user.isActive;
     await user.save();
 
-    console.log('After update:', user.isActive);
+    logger.debug(`After update: isActive=${user.isActive}`);
+
 
     const updatedUser = await User.findById(userId);
-    console.log('Final state:', updatedUser.isActive);
+    logger.debug(`Final State: isActive=${user.isActive}`);
+
 
 
     res.json({ success: true, isActive: user.isActive });

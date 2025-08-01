@@ -12,6 +12,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const { connectToDatabase } = require('./database');
 const config = require('./config');
+const logger = require('./utils/logger');
+
 
 
 
@@ -84,9 +86,9 @@ app.use(
       directives: {
         "default-src": ["'self'"],
         "script-src": [
-          "'self'", 
-          "https://cdn.jsdelivr.net", 
-          "https://cdnjs.cloudflare.com", 
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://cdnjs.cloudflare.com",
           "'unsafe-inline'"
         ],
         "style-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
@@ -113,7 +115,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
-  console.log("req.user:", req.user); // 디버깅 로그 추가
+  logger.debug(`요청: ${req.method} ${req.url}`);
   res.locals.currentUser = req.user || null; // req.user가 없으면 null로 설정;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
@@ -136,9 +138,10 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+  logger.error(`Unhandled error: ${err.message}`);
   res.status(statusCode).render('error', { err })
 });
 
 app.listen(3000, () => {
-  console.log('Serving on port 3000')
+  logger.info(`App Starting... PORT 3000`);
 });

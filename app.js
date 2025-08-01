@@ -13,9 +13,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const { connectToDatabase } = require('./database');
 const config = require('./config');
 const logger = require('./utils/logger');
-
-
-
+const morganMiddleware = require('./utils/morganMiddleware'); // morgan + winston 통합 미들웨어
 
 
 const catchAsync = require('./utils/catchAsync');
@@ -113,9 +111,11 @@ passport.deserializeUser(User.deserializeUser());
 
 
 
+// morgan 미들웨어 등록 (이게 요청 로그를 대신 찍음)
+app.use(morganMiddleware);
 
 app.use((req, res, next) => {
-  logger.debug(`요청: ${req.method} ${req.url}`);
+  // logger.debug(`요청: ${req.method} ${req.url}`);
   res.locals.currentUser = req.user || null; // req.user가 없으면 null로 설정;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
@@ -138,10 +138,9 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-  logger.error(`Unhandled error: ${err.message}`);
   res.status(statusCode).render('error', { err })
 });
 
 app.listen(3000, () => {
-  logger.info(`App Starting... PORT 3000`);
+  console.log(`App Starting... PORT 3000`);
 });

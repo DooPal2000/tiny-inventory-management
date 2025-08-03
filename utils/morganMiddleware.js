@@ -2,6 +2,10 @@ const morgan = require('morgan');
 const winston = require('winston');
 const path = require('path');
 
+// HTTP 요청/응답 로그를 처리하는 morganMiddleware 전용 Winston 로거입니다.
+// 콘솔에 컬러 출력하며, error.log와 combined.log 파일에 분리 저장합니다.
+// 시간대는 KST(UTC+9)로 포맷팅되며, 애플리케이션 커스텀 로그용 로거와는 별도로 운영됩니다.
+
 // winston logger 생성 (미리 utils/logger.js에서 만들 수도 있지만 여기서 직접 만들 수도 있음)
 const logger = winston.createLogger({
   level: 'debug',
@@ -73,9 +77,16 @@ const morganMiddleware = morgan((tokens, req, res) => {
     logger.error(log);
   } else if (status >= 400) {
     logger.warn(log);
+  } else if (status >= 200 && status < 300) {
+    if (responseTime > 1000) {   // 1초 이상 느린 요청은 info
+      logger.info(log);
+    } else {
+      logger.debug(log);          // 1초 이하 요청은 debug
+    }
   } else {
     logger.info(log);
   }
+
 
   return null; // morgan의 기본 출력 방지
 });

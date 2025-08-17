@@ -64,6 +64,8 @@ const logger = winston.createLogger({
 
 const morganMiddleware = morgan((tokens, req, res) => {
   const status = Number(tokens.status(req, res));
+  const responseTime = parseFloat(tokens['response-time'](req, res)); // ← 여기에 변수 정의
+
   const log = [
     tokens.method(req, res),
     tokens.url(req, res),
